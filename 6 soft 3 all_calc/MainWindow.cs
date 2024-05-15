@@ -67,11 +67,14 @@ namespace _6_soft_3_all_calc
 			controller = new Controller(number);
 
 			tabControl.Selecting += TabControl_Selecting;
+			tabControlChangeTypeOfNumber.Selecting += TabControlChangeTypeOfNumber_Selecting;
 
 			buttonClearHistory.Click += ButtonClearHistory_Click;
 			DisableClearHistoryButton();
 
 			buttonChangeCurrentCalculationMode.Click += ButtonChangeCurrentCalculationMode_Click;
+
+			numericUpDownPower.ValueChanged += NumericUpDownPower_ValueChanged;
 		}
 
 		private void ButtonClick(object? sender, EventArgs e)
@@ -100,7 +103,7 @@ namespace _6_soft_3_all_calc
 		{
 			try
 			{
-				string result = controller.ButtonClicked(tag, 0);
+				string result = controller.PNumberButtonClicked(tag);
 
 				//всё кроме памяти
 				if (tag <= 29)
@@ -153,12 +156,128 @@ namespace _6_soft_3_all_calc
 
 		private void DoFractionCommandInController(int tag)
 		{
+			try
+			{
+				string result = controller.FractionButtonClicked(tag);
 
+				//всё кроме памяти
+				if (tag <= 29)
+				{
+					labelResult.Text = result;
+
+					//"Clear"
+					if (tag == 18)
+					{
+						controller.ClearEdit();
+						ClearLabels();
+					}
+
+					textBoxFormula.Text = controller.GetFormulaFromEditor();
+				}
+
+				//M
+				else if (tag == 30)
+					MessageBox.Show(result);
+
+				//MC
+				else if (tag == 31)
+				{
+					DisableUselessMemoryButtons();
+				}
+
+				//MR
+				else if (tag == 32)
+				{
+					labelResult.Text = result;
+				}
+
+				//MS || M+
+				else if (tag == 33 || tag == 34)
+				{
+					if (result == Constants.zero)
+						DisableUselessMemoryButtons();
+					else
+						EnableMemoryButtons();
+				}
+			}
+			catch (CalculatorException e)
+			{
+				MessageBox.Show(e.Message);
+				controller.ClearController();
+
+				ClearLabels();
+			}
 		}
 
 		private void DoComplexCommandInController(int tag)
 		{
+			try
+			{
+				string result = controller.ComplexButtonClicked(tag);
 
+				//всё кроме памяти, x^n, x^(1/n)
+				if ((tag != 21 && tag <= 28) || tag == 35)
+				{
+					//"Clear"
+					if (tag == 18)
+					{
+						controller.ClearEdit();
+						ClearLabels();
+					}
+
+					if (tag >= 10 && tag <= 15 || tag == 21 || tag == 29)
+						textBoxComplexFunctions.Text = result;
+					else
+					{
+						labelResult.Text = result;
+						textBoxFormula.Text = controller.GetFormulaFromEditor();
+					}
+				}
+
+				//M
+				else if (tag == 30)
+					MessageBox.Show(result);
+
+				//MC
+				else if (tag == 31)
+				{
+					DisableUselessMemoryButtons();
+				}
+
+				//MR
+				else if (tag == 32)
+				{
+					labelResult.Text = result;
+				}
+
+				//MS || M+
+				else if (tag == 33 || tag == 34)
+				{
+					if (result == Constants.zero)
+						DisableUselessMemoryButtons();
+					else
+						EnableMemoryButtons();
+				}
+
+				//x^n
+				else if (tag == 21)
+				{
+					textBoxComplexFunctions.Text = controller.CalculateComplexPower(Convert.ToInt32(numericUpDownPower.Value));
+				}
+
+				//x^(1/n)
+				else if (tag == 29)
+				{
+					textBoxComplexFunctions.Text = controller.CalculateComplexRoot(Convert.ToInt32(numericUpDownPower.Value), Convert.ToInt32(numericUpDownIndex.Value));
+				}
+			}
+			catch (CalculatorException e)
+			{
+				MessageBox.Show(e.Message);
+				controller.ClearController();
+
+				ClearLabels();
+			}
 		}
 
 		private void TrackBarNotation_Scroll(object? sender, EventArgs e)
@@ -186,12 +305,20 @@ namespace _6_soft_3_all_calc
 		{
 			buttonMC.Enabled = true;
 			buttonMR.Enabled = true;
+			buttonMC_2.Enabled = true;
+			buttonMR_2.Enabled = true;
+			buttonMC_3.Enabled = true;
+			buttonMR_3.Enabled = true;
 		}
 
 		private void DisableUselessMemoryButtons()
 		{
 			buttonMC.Enabled = false;
 			buttonMR.Enabled = false;
+			buttonMC_2.Enabled = false;
+			buttonMR_2.Enabled = false;
+			buttonMC_3.Enabled = false;
+			buttonMR_3.Enabled = false;
 		}
 
 		private void ClearLabels()
@@ -243,6 +370,29 @@ namespace _6_soft_3_all_calc
 				listBoxHistoryRecords.Items.Clear();
 		}
 
+		private void TabControlChangeTypeOfNumber_Selecting(object? sender, TabControlCancelEventArgs e)
+		{
+			ClearLabels();
+			DisableUselessMemoryButtons();
+
+			if (tabControlChangeTypeOfNumber.SelectedIndex == 0)
+			{
+				controller.ChangeTypeOfNumber(TypeOfNumber.PNumber);
+				trackBarNotation.Value = 2;
+				labelNotationValue.Text = trackBarNotation.Value.ToString();
+				DisableHigherNotationButtons(trackBarNotation.Value);
+			}
+			else if (tabControlChangeTypeOfNumber.SelectedIndex == 1)
+			{
+				controller.ChangeTypeOfNumber(TypeOfNumber.Fraction);
+			}
+			else if (tabControlChangeTypeOfNumber.SelectedIndex == 2)
+			{
+				controller.ChangeTypeOfNumber(TypeOfNumber.Complex);
+				textBoxComplexFunctions.Text = "0";
+			}
+		}
+
 		private void ButtonChangeCurrentCalculationMode_Click(object? sender, EventArgs e)
 		{
 			string result;
@@ -254,8 +404,8 @@ namespace _6_soft_3_all_calc
 				ClearLabels();
 				labelResult.Text = result;
 
-				buttonChangeCurrentCalculationMode.Text = "Поменять на действительные числа";
-				labelCurrentCalculationModeValue.Text = "Целые числа";
+				buttonChangeCurrentCalculationMode.Text = "Поменять на стандартный режим";
+				labelCurrentCalculationModeValue.Text = "Альтернативный режим";
 
 				buttonDelimeter.Enabled = false;
 				buttonReverse.Enabled = false;
@@ -267,12 +417,17 @@ namespace _6_soft_3_all_calc
 				ClearLabels();
 				labelResult.Text = result;
 
-				buttonChangeCurrentCalculationMode.Text = "Поменять на целые числа";
-				labelCurrentCalculationModeValue.Text = "Действительные числа";
+				buttonChangeCurrentCalculationMode.Text = "Поменять на альтернативный режим";
+				labelCurrentCalculationModeValue.Text = "Стандартный режим";
 
 				buttonDelimeter.Enabled = true;
 				buttonReverse.Enabled = true;
 			}
+		}
+
+		private void NumericUpDownPower_ValueChanged(object? sender, EventArgs e)
+		{
+			numericUpDownIndex.Maximum = numericUpDownPower.Value;
 		}
 	}
 }

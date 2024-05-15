@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 using static System.Runtime.InteropServices.JavaScript.JSType;
@@ -446,17 +447,20 @@ namespace _6_soft_3_all_calc
 			long sign;
 			long gcd;
 
-			sign = numerator / denominator < 0 ? -1 : 1;
+			sign = numerator * denominator < 0 ? -1 : 1;
 
 			numerator = Math.Abs(numerator);
 			denominator = Math.Abs(denominator);
 
-			gcd = GCD(numerator, denominator);
+			if (numerator != 0)
+			{
+				gcd = GCD(numerator, denominator);
 
-			numerator /= gcd;
-			denominator /= gcd;
+				numerator /= gcd;
+				denominator /= gcd;
 
-			numerator *= sign;
+				numerator *= sign;
+			}
 		}
 
 		private long GCD(long m, long n)
@@ -487,7 +491,7 @@ namespace _6_soft_3_all_calc
 			if (mode == CalculationMode.Alternative && denominator == 1)
 				return string.Format("{0}", numerator);
 
-			return string.Format("{0}/{1}", numerator, denominator);
+			return string.Format("{0}\\{1}", numerator, denominator);
 		}
 
 		public override void Addition(Number num2)
@@ -573,10 +577,14 @@ namespace _6_soft_3_all_calc
 
 		public override void Reverse()
 		{
+			if (numerator == 0)
+				throw new CalculatorException("Нельзя найти дробь, обратную нулевой.");
+
+			long sign = numerator / denominator < 0 ? -1 : 1;
 			long num = numerator;
 
-			numerator = denominator;
-			denominator = num;
+			numerator = Math.Abs(denominator) * sign;
+			denominator = Math.Abs(num);
 		}
 
 		public override void ClearNumber()
@@ -645,6 +653,16 @@ namespace _6_soft_3_all_calc
 			int iPosition;
 			string stringRe, stringIm;
 
+			iPosition = number.IndexOf(Constants.differentDelimeter);
+			if (iPosition != -1)
+			{
+				number = number.Replace(Constants.differentDelimeter[0], Constants.standardDelimeter[0]);
+
+				iPosition = number.IndexOf(Constants.differentDelimeter);
+				if (iPosition != -1)
+					number = number.Replace(Constants.differentDelimeter[0], Constants.standardDelimeter[0]);
+			}
+
 			try
 			{
 				iPosition = number.IndexOf(Constants.complexDelimeter);
@@ -652,14 +670,14 @@ namespace _6_soft_3_all_calc
 				if (iPosition == -1)
 				{
 					stringRe = number;
-					re = Convert.ToDouble(stringRe);
+					re = double.Parse(stringRe, System.Globalization.CultureInfo.InvariantCulture);
 				}
 				else
 				{
 					if (iPosition == 0)
 					{
 						stringIm = number.Substring(1);
-						im = Convert.ToDouble(stringIm);
+						im = double.Parse(stringIm, System.Globalization.CultureInfo.InvariantCulture);
 					}
 					else
 					{
@@ -668,26 +686,26 @@ namespace _6_soft_3_all_calc
 						stringIm = number.Substring(iPosition - 1);
 						stringIm = stringIm.Substring(0, 1) + stringIm.Substring(2);
 
-						re = Convert.ToDouble(stringRe);
-						im = Convert.ToDouble(stringIm);
+						re = double.Parse(stringRe, System.Globalization.CultureInfo.InvariantCulture);
+						im = double.Parse(stringIm, System.Globalization.CultureInfo.InvariantCulture);
 					}
 				}
 			}
 			catch
 			{
-				throw new Exception("Введено слишком большое комплексное число.");
+				throw new CalculatorException("Комплексное число введено некорректно.");
 			}
 		}
 
 		public override string ToString()
 		{
 			if (im == 0 && mode == CalculationMode.Alternative)
-				return string.Format("({0})", re);
+				return string.Format("{0}", re);
 
 			if (im >= 0)
-				return string.Format("({0}+i{1})", re, im);
+				return string.Format("{0}+i{1}", re, im);
 
-			return string.Format("({0}-i{1})", re, Math.Abs(im));
+			return string.Format("{0}-i{1}", re, Math.Abs(im));
 		}
 
 		public override void Copy(Number num)
@@ -731,11 +749,13 @@ namespace _6_soft_3_all_calc
 		public override void Multiplication(Number num2)
 		{
 			Complex number2 = (Complex)num2;
+			double re1 = this.re, re2 = number2.re;
+			double im1 = this.im, im2 = number2.im;
 
 			try
 			{
-				this.re = this.re * number2.re + this.im * number2.im;
-				this.im = this.re * number2.im + number2.re * this.im;
+				this.re = re1 * re2 - im1 * im2;
+				this.im = re1 * im2 + re2 * im1;
 			}
 			catch
 			{
@@ -746,11 +766,13 @@ namespace _6_soft_3_all_calc
 		public override void Division(Number num2)
 		{
 			Complex number2 = (Complex)num2;
+			double re1 = this.re, re2 = number2.re;
+			double im1 = this.im, im2 = number2.im;
 
 			try
 			{
-				this.re = (this.re * number2.re + this.im * number2.im) / (number2.re * number2.re + number2.im * number2.im);
-				this.im = (this.re * number2.im - number2.re * this.im) / (number2.re * number2.re + number2.im * number2.im);
+				this.re = (re1 * re2 + im1 * im2) / (re2 * re2 + im2 * im2);
+				this.im = (re2 * im1 - re1 * im2) / (re2 * re2 + im2 * im2);
 			}
 			catch
 			{
@@ -760,10 +782,12 @@ namespace _6_soft_3_all_calc
 
 		public override void Square()
 		{
+			double re1 = re, im1 = im;
+
 			try
 			{
-				re = re * re + im * im;
-				im = 2 * re * im;
+				re = re1 * re1 - im1 * im1;
+				im = 2 * re1 * im1;
 			}
 			catch
 			{
@@ -773,10 +797,12 @@ namespace _6_soft_3_all_calc
 
 		public override void Reverse()
 		{
+			double re1 = re, im1 = im;
+
 			try
 			{
-				re = re / (re * re + im * im);
-				im = -im / (re * re + im * im);
+				re = re1 / (re1 * re1 + im1 * im1);
+				im = -im1 / (re1 * re1 + im1 * im1);
 			}
 			catch
 			{
@@ -798,6 +824,9 @@ namespace _6_soft_3_all_calc
 
 		public double FindArgumentInRadians()
 		{
+			if (re == 0 && im == 0)
+				return 0.0;
+
 			if (re == 0)
 				return im > 0 ? Math.PI / 2 : -Math.PI / 2;
 
@@ -868,6 +897,11 @@ namespace _6_soft_3_all_calc
 		public double Cos()
 		{
 			return Math.Cos(FindArgumentInRadians());
+		}
+
+		public double Tan()
+		{
+			return Math.Tan(FindArgumentInRadians());
 		}
 
 		public void SetRe(double re)

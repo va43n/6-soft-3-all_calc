@@ -125,7 +125,6 @@
 			buttonMultiply_3 = new Button();
 			buttonDivision_3 = new Button();
 			buttonBackSpace_3 = new Button();
-			buttonI_3 = new Button();
 			buttonDelimeter_3 = new Button();
 			button3_3 = new Button();
 			button2_3 = new Button();
@@ -137,20 +136,24 @@
 			button4_3 = new Button();
 			button7_3 = new Button();
 			button0_3 = new Button();
-			buttonChangeSign_3 = new Button();
 			buttonModZ_3 = new Button();
 			buttonClear_3 = new Button();
 			buttonClearEdit_3 = new Button();
 			buttonArgDeg_3 = new Button();
-			buttonArgRad_3 = new Button();
-			buttonSin_3 = new Button();
-			buttonCos_3 = new Button();
-			buttonPower_3 = new Button();
 			buttonReverse_3 = new Button();
-			buttonRoot_3 = new Button();
 			buttonSquare_3 = new Button();
+			buttonArgRad_3 = new Button();
+			buttonRoot_3 = new Button();
+			buttonPower_3 = new Button();
+			buttonSin_3 = new Button();
 			buttonTg_3 = new Button();
-			labelComplexFunctionsResult = new Label();
+			buttonCos_3 = new Button();
+			buttonI_3 = new Button();
+			buttonChangeSign_3 = new Button();
+			tableLayoutPanelComplexField = new TableLayoutPanel();
+			numericUpDownIndex = new NumericUpDown();
+			textBoxComplexFunctions = new TextBox();
+			numericUpDownPower = new NumericUpDown();
 			tab2 = new TabPage();
 			tableLayoutPanel1 = new TableLayoutPanel();
 			labelHistoryText = new Label();
@@ -183,6 +186,9 @@
 			tabPageComplex.SuspendLayout();
 			tableComplexField.SuspendLayout();
 			tableComplexCalculatorButtons.SuspendLayout();
+			tableLayoutPanelComplexField.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)numericUpDownIndex).BeginInit();
+			((System.ComponentModel.ISupportInitialize)numericUpDownPower).BeginInit();
 			tab2.SuspendLayout();
 			tableLayoutPanel1.SuspendLayout();
 			tab3.SuspendLayout();
@@ -1250,7 +1256,7 @@
 			tableComplexField.ColumnCount = 1;
 			tableComplexField.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
 			tableComplexField.Controls.Add(tableComplexCalculatorButtons, 0, 0);
-			tableComplexField.Controls.Add(labelComplexFunctionsResult, 0, 1);
+			tableComplexField.Controls.Add(tableLayoutPanelComplexField, 0, 1);
 			tableComplexField.Location = new Point(0, 0);
 			tableComplexField.Margin = new Padding(0);
 			tableComplexField.Name = "tableComplexField";
@@ -1441,17 +1447,6 @@
 			buttonBackSpace_3.Text = "BS";
 			buttonBackSpace_3.UseVisualStyleBackColor = true;
 			// 
-			// buttonI_3
-			// 
-			buttonI_3.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-			buttonI_3.Location = new Point(47, 258);
-			buttonI_3.Name = "buttonI_3";
-			buttonI_3.Size = new Size(38, 46);
-			buttonI_3.TabIndex = 30;
-			buttonI_3.Tag = "235";
-			buttonI_3.Text = "i";
-			buttonI_3.UseVisualStyleBackColor = true;
-			// 
 			// buttonDelimeter_3
 			// 
 			buttonDelimeter_3.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
@@ -1573,17 +1568,6 @@
 			button0_3.Text = "0";
 			button0_3.UseVisualStyleBackColor = true;
 			// 
-			// buttonChangeSign_3
-			// 
-			buttonChangeSign_3.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-			buttonChangeSign_3.Location = new Point(135, 258);
-			buttonChangeSign_3.Name = "buttonChangeSign_3";
-			buttonChangeSign_3.Size = new Size(38, 46);
-			buttonChangeSign_3.TabIndex = 10;
-			buttonChangeSign_3.Tag = "217";
-			buttonChangeSign_3.Text = "+/-";
-			buttonChangeSign_3.UseVisualStyleBackColor = true;
-			// 
 			// buttonModZ_3
 			// 
 			buttonModZ_3.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
@@ -1628,50 +1612,6 @@
 			buttonArgDeg_3.Text = "arg (deg)";
 			buttonArgDeg_3.UseVisualStyleBackColor = true;
 			// 
-			// buttonArgRad_3
-			// 
-			buttonArgRad_3.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-			buttonArgRad_3.Location = new Point(47, 105);
-			buttonArgRad_3.Name = "buttonArgRad_3";
-			buttonArgRad_3.Size = new Size(38, 45);
-			buttonArgRad_3.TabIndex = 22;
-			buttonArgRad_3.Tag = "212";
-			buttonArgRad_3.Text = "arg (rad)";
-			buttonArgRad_3.UseVisualStyleBackColor = true;
-			// 
-			// buttonSin_3
-			// 
-			buttonSin_3.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-			buttonSin_3.Location = new Point(3, 54);
-			buttonSin_3.Name = "buttonSin_3";
-			buttonSin_3.Size = new Size(38, 45);
-			buttonSin_3.TabIndex = 32;
-			buttonSin_3.Tag = "213";
-			buttonSin_3.Text = "sin";
-			buttonSin_3.UseVisualStyleBackColor = true;
-			// 
-			// buttonCos_3
-			// 
-			buttonCos_3.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-			buttonCos_3.Location = new Point(3, 105);
-			buttonCos_3.Name = "buttonCos_3";
-			buttonCos_3.Size = new Size(38, 45);
-			buttonCos_3.TabIndex = 33;
-			buttonCos_3.Tag = "214";
-			buttonCos_3.Text = "cos";
-			buttonCos_3.UseVisualStyleBackColor = true;
-			// 
-			// buttonPower_3
-			// 
-			buttonPower_3.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-			buttonPower_3.Location = new Point(47, 156);
-			buttonPower_3.Name = "buttonPower_3";
-			buttonPower_3.Size = new Size(38, 45);
-			buttonPower_3.TabIndex = 16;
-			buttonPower_3.Tag = "221";
-			buttonPower_3.Text = "x^n";
-			buttonPower_3.UseVisualStyleBackColor = true;
-			// 
 			// buttonReverse_3
 			// 
 			buttonReverse_3.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
@@ -1682,17 +1622,6 @@
 			buttonReverse_3.Tag = "228";
 			buttonReverse_3.Text = "1/x";
 			buttonReverse_3.UseVisualStyleBackColor = true;
-			// 
-			// buttonRoot_3
-			// 
-			buttonRoot_3.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-			buttonRoot_3.Location = new Point(47, 207);
-			buttonRoot_3.Name = "buttonRoot_3";
-			buttonRoot_3.Size = new Size(38, 45);
-			buttonRoot_3.TabIndex = 17;
-			buttonRoot_3.Tag = "229";
-			buttonRoot_3.Text = "x^1/n";
-			buttonRoot_3.UseVisualStyleBackColor = true;
 			// 
 			// buttonSquare_3
 			// 
@@ -1705,6 +1634,50 @@
 			buttonSquare_3.Text = "x^2";
 			buttonSquare_3.UseVisualStyleBackColor = true;
 			// 
+			// buttonArgRad_3
+			// 
+			buttonArgRad_3.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+			buttonArgRad_3.Location = new Point(47, 105);
+			buttonArgRad_3.Name = "buttonArgRad_3";
+			buttonArgRad_3.Size = new Size(38, 45);
+			buttonArgRad_3.TabIndex = 22;
+			buttonArgRad_3.Tag = "212";
+			buttonArgRad_3.Text = "arg (rad)";
+			buttonArgRad_3.UseVisualStyleBackColor = true;
+			// 
+			// buttonRoot_3
+			// 
+			buttonRoot_3.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+			buttonRoot_3.Location = new Point(47, 207);
+			buttonRoot_3.Name = "buttonRoot_3";
+			buttonRoot_3.Size = new Size(38, 45);
+			buttonRoot_3.TabIndex = 17;
+			buttonRoot_3.Tag = "229";
+			buttonRoot_3.Text = "x^1/n";
+			buttonRoot_3.UseVisualStyleBackColor = true;
+			// 
+			// buttonPower_3
+			// 
+			buttonPower_3.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+			buttonPower_3.Location = new Point(47, 156);
+			buttonPower_3.Name = "buttonPower_3";
+			buttonPower_3.Size = new Size(38, 45);
+			buttonPower_3.TabIndex = 16;
+			buttonPower_3.Tag = "221";
+			buttonPower_3.Text = "x^n";
+			buttonPower_3.UseVisualStyleBackColor = true;
+			// 
+			// buttonSin_3
+			// 
+			buttonSin_3.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+			buttonSin_3.Location = new Point(3, 54);
+			buttonSin_3.Name = "buttonSin_3";
+			buttonSin_3.Size = new Size(38, 45);
+			buttonSin_3.TabIndex = 32;
+			buttonSin_3.Tag = "213";
+			buttonSin_3.Text = "sin";
+			buttonSin_3.UseVisualStyleBackColor = true;
+			// 
 			// buttonTg_3
 			// 
 			buttonTg_3.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
@@ -1716,17 +1689,86 @@
 			buttonTg_3.Text = "tg";
 			buttonTg_3.UseVisualStyleBackColor = true;
 			// 
-			// labelComplexFunctionsResult
+			// buttonCos_3
 			// 
-			labelComplexFunctionsResult.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-			labelComplexFunctionsResult.AutoSize = true;
-			labelComplexFunctionsResult.BackColor = SystemColors.Control;
-			labelComplexFunctionsResult.Location = new Point(0, 307);
-			labelComplexFunctionsResult.Margin = new Padding(0);
-			labelComplexFunctionsResult.Name = "labelComplexFunctionsResult";
-			labelComplexFunctionsResult.Size = new Size(269, 35);
-			labelComplexFunctionsResult.TabIndex = 1;
-			labelComplexFunctionsResult.TextAlign = ContentAlignment.MiddleRight;
+			buttonCos_3.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+			buttonCos_3.Location = new Point(3, 105);
+			buttonCos_3.Name = "buttonCos_3";
+			buttonCos_3.Size = new Size(38, 45);
+			buttonCos_3.TabIndex = 33;
+			buttonCos_3.Tag = "214";
+			buttonCos_3.Text = "cos";
+			buttonCos_3.UseVisualStyleBackColor = true;
+			// 
+			// buttonI_3
+			// 
+			buttonI_3.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+			buttonI_3.Location = new Point(47, 258);
+			buttonI_3.Name = "buttonI_3";
+			buttonI_3.Size = new Size(38, 46);
+			buttonI_3.TabIndex = 30;
+			buttonI_3.Tag = "235";
+			buttonI_3.Text = "i";
+			buttonI_3.UseVisualStyleBackColor = true;
+			// 
+			// buttonChangeSign_3
+			// 
+			buttonChangeSign_3.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+			buttonChangeSign_3.Location = new Point(135, 258);
+			buttonChangeSign_3.Name = "buttonChangeSign_3";
+			buttonChangeSign_3.Size = new Size(38, 46);
+			buttonChangeSign_3.TabIndex = 10;
+			buttonChangeSign_3.Tag = "217";
+			buttonChangeSign_3.Text = "+/-";
+			buttonChangeSign_3.UseVisualStyleBackColor = true;
+			// 
+			// tableLayoutPanelComplexField
+			// 
+			tableLayoutPanelComplexField.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+			tableLayoutPanelComplexField.ColumnCount = 3;
+			tableLayoutPanelComplexField.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 60F));
+			tableLayoutPanelComplexField.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 20F));
+			tableLayoutPanelComplexField.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 20F));
+			tableLayoutPanelComplexField.Controls.Add(numericUpDownIndex, 2, 0);
+			tableLayoutPanelComplexField.Controls.Add(textBoxComplexFunctions, 0, 0);
+			tableLayoutPanelComplexField.Controls.Add(numericUpDownPower, 1, 0);
+			tableLayoutPanelComplexField.Location = new Point(0, 307);
+			tableLayoutPanelComplexField.Margin = new Padding(0);
+			tableLayoutPanelComplexField.Name = "tableLayoutPanelComplexField";
+			tableLayoutPanelComplexField.RowCount = 1;
+			tableLayoutPanelComplexField.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+			tableLayoutPanelComplexField.Size = new Size(269, 35);
+			tableLayoutPanelComplexField.TabIndex = 2;
+			// 
+			// numericUpDownIndex
+			// 
+			numericUpDownIndex.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+			numericUpDownIndex.Location = new Point(217, 3);
+			numericUpDownIndex.Maximum = new decimal(new int[] { 1, 0, 0, 0 });
+			numericUpDownIndex.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
+			numericUpDownIndex.Name = "numericUpDownIndex";
+			numericUpDownIndex.Size = new Size(49, 23);
+			numericUpDownIndex.TabIndex = 3;
+			numericUpDownIndex.Value = new decimal(new int[] { 1, 0, 0, 0 });
+			// 
+			// textBoxComplexFunctions
+			// 
+			textBoxComplexFunctions.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+			textBoxComplexFunctions.BorderStyle = BorderStyle.None;
+			textBoxComplexFunctions.Location = new Point(3, 3);
+			textBoxComplexFunctions.Name = "textBoxComplexFunctions";
+			textBoxComplexFunctions.Size = new Size(155, 16);
+			textBoxComplexFunctions.TabIndex = 1;
+			// 
+			// numericUpDownPower
+			// 
+			numericUpDownPower.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+			numericUpDownPower.Location = new Point(164, 3);
+			numericUpDownPower.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
+			numericUpDownPower.Name = "numericUpDownPower";
+			numericUpDownPower.Size = new Size(47, 23);
+			numericUpDownPower.TabIndex = 2;
+			numericUpDownPower.Value = new decimal(new int[] { 1, 0, 0, 0 });
 			// 
 			// tab2
 			// 
@@ -1844,7 +1886,7 @@
 			labelCalculationModeOption.Name = "labelCalculationModeOption";
 			labelCalculationModeOption.Size = new Size(271, 59);
 			labelCalculationModeOption.TabIndex = 0;
-			labelCalculationModeOption.Text = "Режим работы калькулятора (Действительные числа/целые числа).";
+			labelCalculationModeOption.Text = "Режим работы калькулятора (Стандартный режим/Альиернативный режим).";
 			labelCalculationModeOption.TextAlign = ContentAlignment.MiddleCenter;
 			// 
 			// tableLayoutPanelCurrentCalculationMode
@@ -1888,7 +1930,7 @@
 			labelCurrentCalculationModeValue.Name = "labelCurrentCalculationModeValue";
 			labelCurrentCalculationModeValue.Size = new Size(86, 59);
 			labelCurrentCalculationModeValue.TabIndex = 1;
-			labelCurrentCalculationModeValue.Text = "Действительные числа";
+			labelCurrentCalculationModeValue.Text = "Стандартный режим";
 			labelCurrentCalculationModeValue.TextAlign = ContentAlignment.MiddleCenter;
 			// 
 			// buttonChangeCurrentCalculationMode
@@ -1898,7 +1940,7 @@
 			buttonChangeCurrentCalculationMode.Name = "buttonChangeCurrentCalculationMode";
 			buttonChangeCurrentCalculationMode.Size = new Size(87, 59);
 			buttonChangeCurrentCalculationMode.TabIndex = 2;
-			buttonChangeCurrentCalculationMode.Text = "Поменять на целые числа";
+			buttonChangeCurrentCalculationMode.Text = "Поменять на альтернативный режим";
 			toolTip.SetToolTip(buttonChangeCurrentCalculationMode, "Нажмите, чтобы поменять режим работы калькулятора");
 			buttonChangeCurrentCalculationMode.UseVisualStyleBackColor = true;
 			// 
@@ -1953,8 +1995,11 @@
 			tableFractionsCalculatorButtons.ResumeLayout(false);
 			tabPageComplex.ResumeLayout(false);
 			tableComplexField.ResumeLayout(false);
-			tableComplexField.PerformLayout();
 			tableComplexCalculatorButtons.ResumeLayout(false);
+			tableLayoutPanelComplexField.ResumeLayout(false);
+			tableLayoutPanelComplexField.PerformLayout();
+			((System.ComponentModel.ISupportInitialize)numericUpDownIndex).EndInit();
+			((System.ComponentModel.ISupportInitialize)numericUpDownPower).EndInit();
 			tab2.ResumeLayout(false);
 			tableLayoutPanel1.ResumeLayout(false);
 			tableLayoutPanel1.PerformLayout();
@@ -2107,6 +2152,9 @@
         private Button buttonSquare_3;
         private Button buttonTg_3;
         private TableLayoutPanel tableComplexField;
-        private Label labelComplexFunctionsResult;
-    }
+		private TextBox textBoxComplexFunctions;
+		private TableLayoutPanel tableLayoutPanelComplexField;
+		private NumericUpDown numericUpDownIndex;
+		private NumericUpDown numericUpDownPower;
+	}
 }

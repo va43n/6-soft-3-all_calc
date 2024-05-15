@@ -21,12 +21,33 @@ namespace _6_soft_3_all_calc
 			rightOperand = new PNumber();
 		}
 
+		public void ChangeTypeOfNumber(TypeOfNumber typeOfNumber)
+		{
+			operation = Operation.None;
+
+			if (typeOfNumber == TypeOfNumber.PNumber)
+			{
+				leftOperand = new PNumber();
+				rightOperand = new PNumber();
+			}
+			else if (typeOfNumber == TypeOfNumber.Fraction)
+			{
+				leftOperand = new Fraction();
+				rightOperand = new Fraction();
+			}
+			else if (typeOfNumber == TypeOfNumber.Complex)
+			{
+				leftOperand = new Complex();
+				rightOperand = new Complex();
+			}
+		}
+
 		public string CalculateOperation(Operation operation)
 		{
 			if (operation != Operation.None)
 			{
 				if (this.operation == Operation.Addition)
-					leftOperand.Addition((PNumber)rightOperand);
+					leftOperand.Addition(rightOperand);
 				else if (this.operation == Operation.Subtraction)
 					leftOperand.Subtraction(rightOperand);
 				else if (this.operation == Operation.Multiplication)
@@ -79,7 +100,7 @@ namespace _6_soft_3_all_calc
 			rightOperand.ClearNumber();
 		}
 
-		public void SetOperand(PNumber number)
+		public void SetOperand(Number number)
 		{
 			if (operation == Operation.None)
 				leftOperand.Copy(number);

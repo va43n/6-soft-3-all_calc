@@ -88,14 +88,9 @@ namespace _6_soft_3_all_calc
 
 		public override string PrepareNumberToCalculate()
 		{
-			string result;
-
 			TransformToNormalNumber();
-			result = currentNumber;
 
-			currentNumber = Constants.zero;
-
-			return result;
+			return currentNumber;
 		}
 
 		public override void ChangeCurrentNumber(string newNumber)
@@ -159,10 +154,10 @@ namespace _6_soft_3_all_calc
 		{
 			if (currentNumber == Constants.zero)
 				currentNumber = Fraction.alphabet[index].ToString();
-			else if (currentNumber.IndexOf(Constants.fractionDelimeter) != -1 && index == 0)
+			else if (currentNumber.IndexOf(Constants.fractionDelimeter) == currentNumber.Length - 1 && index == 0)
 				return currentNumber;
-
-			currentNumber += PNumber.alphabet[index];
+			else
+				currentNumber += Fraction.alphabet[index].ToString();
 
 			return currentNumber;
 		}
@@ -214,14 +209,9 @@ namespace _6_soft_3_all_calc
 
 		public override string PrepareNumberToCalculate()
 		{
-			string result;
-
 			TransformToNormalNumber();
-			result = currentNumber;
 
-			currentNumber = Constants.zero;
-
-			return result;
+			return currentNumber;
 		}
 
 		public override void ChangeCurrentNumber(string newNumber)
@@ -277,9 +267,9 @@ namespace _6_soft_3_all_calc
 		public override string AddDigit(int index)
 		{
 			if (currentNumber == Constants.zero)
-				currentNumber = Fraction.alphabet[index].ToString();
+				currentNumber = Complex.alphabet[index].ToString();
 			else
-				currentNumber += PNumber.alphabet[index];
+				currentNumber += Complex.alphabet[index];
 
 			return currentNumber;
 		}
@@ -299,6 +289,26 @@ namespace _6_soft_3_all_calc
 				else
 					currentNumber += Constants.standardDelimeter;
 			}
+
+			return currentNumber;
+		}
+
+		public string AddSignAndComplexDelimeter(string sign)
+		{
+			currentNumber += sign + Constants.complexDelimeter;
+
+			return currentNumber;
+		}
+
+		public string AddComplexDelimeter()
+		{
+			if (currentNumber.IndexOf(Constants.complexDelimeter) != -1)
+				return currentNumber;
+
+			if (currentNumber == Constants.zero)
+				currentNumber = Constants.complexDelimeter;
+			else
+				currentNumber += Constants.formulaSymbols[1] + Constants.complexDelimeter;
 
 			return currentNumber;
 		}
@@ -361,14 +371,9 @@ namespace _6_soft_3_all_calc
 
 		public override string PrepareNumberToCalculate()
 		{
-			string result;
-
 			TransformToNormalNumber();
-			result = currentNumber;
 
-			currentNumber = Constants.zero;
-
-			return result;
+			return currentNumber;
 		}
 
 		public override void ChangeCurrentNumber(string newNumber)
@@ -406,6 +411,9 @@ namespace _6_soft_3_all_calc
 		private void TransformToNormalNumber()
 		{
 			int firstDelimeterPosition = -1, secondDelimeterPosition = -1;
+
+			if (currentNumber[currentNumber.Length - 1] == Constants.formulaSymbols[1][0] || currentNumber[currentNumber.Length - 1] == Constants.formulaSymbols[2][0])
+				currentNumber = currentNumber.Substring(0, currentNumber.Length - 1);
 
 			for (int i = 0; i < currentNumber.Length; i++)
 			{
@@ -461,6 +469,9 @@ namespace _6_soft_3_all_calc
 					}
 				}
 			}
+
+			if (currentNumber.IndexOf(Constants.complexDelimeter) == -1)
+				currentNumber += Constants.formulaSymbols[1] + Constants.complexDelimeter + Constants.zero;
 		}
 	}
 }

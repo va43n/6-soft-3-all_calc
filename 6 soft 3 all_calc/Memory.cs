@@ -19,6 +19,16 @@ namespace _6_soft_3_all_calc
 			number = new PNumber();
 		}
 
+		public void ChangeTypeOfNumber(TypeOfNumber typeOfNumber)
+		{
+			if (typeOfNumber == TypeOfNumber.PNumber)
+				number = new PNumber();
+			else if (typeOfNumber == TypeOfNumber.Fraction)
+				number = new Fraction();
+			else if (typeOfNumber == TypeOfNumber.Complex)
+				number = new Complex();
+		}
+
 		public string CheckMemoryValue()
 		{
 			return number.ToString();
@@ -30,7 +40,7 @@ namespace _6_soft_3_all_calc
 			state = MemoryState.Off;
 		}
 
-		public string SaveValueInMemory(PNumber newNumber)
+		public string SaveValueInMemory(Number newNumber)
 		{
 			state = MemoryState.On;
 
@@ -39,7 +49,7 @@ namespace _6_soft_3_all_calc
 			return number.ToString();
 		}
 
-		public string AddValueToMemory(PNumber newNumber)
+		public string AddValueToMemory(Number newNumber)
 		{
 			state = MemoryState.On;
 
