@@ -433,7 +433,7 @@ namespace _6_soft_3_all_calc
 			}
 			catch
 			{
-				throw new CalculatorException("Одно из чисел дроби слишком большое.");
+				throw new CalculatorException("Дробь введена некорректно.");
 			}
 
 			if (denominator == 0)
@@ -580,7 +580,7 @@ namespace _6_soft_3_all_calc
 			if (numerator == 0)
 				throw new CalculatorException("Нельзя найти дробь, обратную нулевой.");
 
-			long sign = numerator / denominator < 0 ? -1 : 1;
+			long sign = numerator * denominator < 0 ? -1 : 1;
 			long num = numerator;
 
 			numerator = Math.Abs(denominator) * sign;

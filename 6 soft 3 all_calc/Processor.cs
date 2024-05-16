@@ -21,7 +21,7 @@ namespace _6_soft_3_all_calc
 			rightOperand = new PNumber();
 		}
 
-		public void ChangeTypeOfNumber(TypeOfNumber typeOfNumber)
+		public void ChangeTypeOfNumber(TypeOfNumber typeOfNumber, CalculationMode calculationMode)
 		{
 			operation = Operation.None;
 
@@ -40,6 +40,9 @@ namespace _6_soft_3_all_calc
 				leftOperand = new Complex();
 				rightOperand = new Complex();
 			}
+
+			leftOperand.ChangeCalculationMode(calculationMode);
+			rightOperand.ChangeCalculationMode(calculationMode);
 		}
 
 		public string CalculateOperation(Operation operation)

@@ -19,7 +19,7 @@ namespace _6_soft_3_all_calc
 			number = new PNumber();
 		}
 
-		public void ChangeTypeOfNumber(TypeOfNumber typeOfNumber)
+		public void ChangeTypeOfNumber(TypeOfNumber typeOfNumber, CalculationMode calculationMode)
 		{
 			if (typeOfNumber == TypeOfNumber.PNumber)
 				number = new PNumber();
@@ -27,6 +27,8 @@ namespace _6_soft_3_all_calc
 				number = new Fraction();
 			else if (typeOfNumber == TypeOfNumber.Complex)
 				number = new Complex();
+
+			number.ChangeCalculationMode(calculationMode);
 		}
 
 		public string CheckMemoryValue()

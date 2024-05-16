@@ -151,9 +151,9 @@
 			buttonI_3 = new Button();
 			buttonChangeSign_3 = new Button();
 			tableLayoutPanelComplexField = new TableLayoutPanel();
-			numericUpDownIndex = new NumericUpDown();
 			textBoxComplexFunctions = new TextBox();
 			numericUpDownPower = new NumericUpDown();
+			numericUpDownIndex = new NumericUpDown();
 			tab2 = new TabPage();
 			tableLayoutPanel1 = new TableLayoutPanel();
 			labelHistoryText = new Label();
@@ -187,8 +187,8 @@
 			tableComplexField.SuspendLayout();
 			tableComplexCalculatorButtons.SuspendLayout();
 			tableLayoutPanelComplexField.SuspendLayout();
-			((System.ComponentModel.ISupportInitialize)numericUpDownIndex).BeginInit();
 			((System.ComponentModel.ISupportInitialize)numericUpDownPower).BeginInit();
+			((System.ComponentModel.ISupportInitialize)numericUpDownIndex).BeginInit();
 			tab2.SuspendLayout();
 			tableLayoutPanel1.SuspendLayout();
 			tab3.SuspendLayout();
@@ -1726,12 +1726,12 @@
 			// 
 			tableLayoutPanelComplexField.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
 			tableLayoutPanelComplexField.ColumnCount = 3;
+			tableLayoutPanelComplexField.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 20F));
+			tableLayoutPanelComplexField.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 20F));
 			tableLayoutPanelComplexField.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 60F));
-			tableLayoutPanelComplexField.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 20F));
-			tableLayoutPanelComplexField.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 20F));
-			tableLayoutPanelComplexField.Controls.Add(numericUpDownIndex, 2, 0);
-			tableLayoutPanelComplexField.Controls.Add(textBoxComplexFunctions, 0, 0);
-			tableLayoutPanelComplexField.Controls.Add(numericUpDownPower, 1, 0);
+			tableLayoutPanelComplexField.Controls.Add(textBoxComplexFunctions, 2, 0);
+			tableLayoutPanelComplexField.Controls.Add(numericUpDownPower, 0, 0);
+			tableLayoutPanelComplexField.Controls.Add(numericUpDownIndex, 1, 0);
 			tableLayoutPanelComplexField.Location = new Point(0, 307);
 			tableLayoutPanelComplexField.Margin = new Padding(0);
 			tableLayoutPanelComplexField.Name = "tableLayoutPanelComplexField";
@@ -1740,35 +1740,36 @@
 			tableLayoutPanelComplexField.Size = new Size(269, 35);
 			tableLayoutPanelComplexField.TabIndex = 2;
 			// 
-			// numericUpDownIndex
-			// 
-			numericUpDownIndex.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-			numericUpDownIndex.Location = new Point(217, 3);
-			numericUpDownIndex.Maximum = new decimal(new int[] { 1, 0, 0, 0 });
-			numericUpDownIndex.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
-			numericUpDownIndex.Name = "numericUpDownIndex";
-			numericUpDownIndex.Size = new Size(49, 23);
-			numericUpDownIndex.TabIndex = 3;
-			numericUpDownIndex.Value = new decimal(new int[] { 1, 0, 0, 0 });
-			// 
 			// textBoxComplexFunctions
 			// 
 			textBoxComplexFunctions.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
 			textBoxComplexFunctions.BorderStyle = BorderStyle.None;
-			textBoxComplexFunctions.Location = new Point(3, 3);
+			textBoxComplexFunctions.Location = new Point(109, 3);
 			textBoxComplexFunctions.Name = "textBoxComplexFunctions";
-			textBoxComplexFunctions.Size = new Size(155, 16);
+			textBoxComplexFunctions.Size = new Size(157, 16);
 			textBoxComplexFunctions.TabIndex = 1;
+			textBoxComplexFunctions.TextAlign = HorizontalAlignment.Right;
 			// 
 			// numericUpDownPower
 			// 
 			numericUpDownPower.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-			numericUpDownPower.Location = new Point(164, 3);
+			numericUpDownPower.Location = new Point(3, 3);
 			numericUpDownPower.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
 			numericUpDownPower.Name = "numericUpDownPower";
 			numericUpDownPower.Size = new Size(47, 23);
 			numericUpDownPower.TabIndex = 2;
 			numericUpDownPower.Value = new decimal(new int[] { 1, 0, 0, 0 });
+			// 
+			// numericUpDownIndex
+			// 
+			numericUpDownIndex.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+			numericUpDownIndex.Location = new Point(56, 3);
+			numericUpDownIndex.Maximum = new decimal(new int[] { 1, 0, 0, 0 });
+			numericUpDownIndex.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
+			numericUpDownIndex.Name = "numericUpDownIndex";
+			numericUpDownIndex.Size = new Size(47, 23);
+			numericUpDownIndex.TabIndex = 4;
+			numericUpDownIndex.Value = new decimal(new int[] { 1, 0, 0, 0 });
 			// 
 			// tab2
 			// 
@@ -1998,8 +1999,8 @@
 			tableComplexCalculatorButtons.ResumeLayout(false);
 			tableLayoutPanelComplexField.ResumeLayout(false);
 			tableLayoutPanelComplexField.PerformLayout();
-			((System.ComponentModel.ISupportInitialize)numericUpDownIndex).EndInit();
 			((System.ComponentModel.ISupportInitialize)numericUpDownPower).EndInit();
+			((System.ComponentModel.ISupportInitialize)numericUpDownIndex).EndInit();
 			tab2.ResumeLayout(false);
 			tableLayoutPanel1.ResumeLayout(false);
 			tableLayoutPanel1.PerformLayout();

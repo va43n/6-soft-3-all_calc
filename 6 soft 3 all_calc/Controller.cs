@@ -47,21 +47,21 @@ namespace _6_soft_3_all_calc
 		{
 			if (typeOfNumber == TypeOfNumber.PNumber)
 			{
-				processor.ChangeTypeOfNumber(typeOfNumber);
+				processor.ChangeTypeOfNumber(typeOfNumber, calculationMode);
 				editor = new PNumberEditor();
-				memory.ChangeTypeOfNumber(typeOfNumber);
+				memory.ChangeTypeOfNumber(typeOfNumber, calculationMode);
 			}
 			else if (typeOfNumber == TypeOfNumber.Fraction)
 			{
-				processor.ChangeTypeOfNumber(typeOfNumber);
+				processor.ChangeTypeOfNumber(typeOfNumber, calculationMode);
 				editor = new FractionEditor();
-				memory.ChangeTypeOfNumber(typeOfNumber);
+				memory.ChangeTypeOfNumber(typeOfNumber, calculationMode);
 			}
 			else if (typeOfNumber == TypeOfNumber.Complex)
 			{
-				processor.ChangeTypeOfNumber(typeOfNumber);
+				processor.ChangeTypeOfNumber(typeOfNumber, calculationMode);
 				editor = new ComplexEditor();
-				memory.ChangeTypeOfNumber(typeOfNumber);
+				memory.ChangeTypeOfNumber(typeOfNumber, calculationMode);
 			}
 		}
 
