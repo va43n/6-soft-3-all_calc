@@ -637,12 +637,15 @@ namespace _6_soft_3_all_calc
 		public static string alphabet = "0123456789";
 
 		private double re, im;
+		private int reAccuracy, imAccuracy;
 		private CalculationMode mode;
 
 		public Complex()
 		{
 			re = 0;
 			im = 0;
+			reAccuracy = 0;
+			imAccuracy = 0;
 			//Standard - only complex
 			//Alternative - may be real if im = 0
 			mode = CalculationMode.Standard;
@@ -690,11 +693,29 @@ namespace _6_soft_3_all_calc
 						im = double.Parse(stringIm, System.Globalization.CultureInfo.InvariantCulture);
 					}
 				}
+
+				reAccuracy = CalculateAccuracy(re);
+				imAccuracy = CalculateAccuracy(im);
 			}
 			catch
 			{
 				throw new CalculatorException("Комплексное число введено некорректно.");
 			}
+		}
+
+		private int CalculateAccuracy(double number)
+		{
+			int delimeterPosition;
+			string strNumber = number.ToString();
+
+			delimeterPosition = strNumber.IndexOf(Constants.standardDelimeter);
+			if (delimeterPosition == -1)
+				delimeterPosition = strNumber.IndexOf(Constants.differentDelimeter);
+
+			if (delimeterPosition != -1)
+				return strNumber.Length - 1 - delimeterPosition;
+
+			return 0;
 		}
 
 		public override string ToString()
@@ -714,6 +735,8 @@ namespace _6_soft_3_all_calc
 
 			re = number.re;
 			im = number.im;
+			reAccuracy = number.reAccuracy;
+			imAccuracy = number.imAccuracy;
 		}
 
 		public override void Addition(Number num2)
@@ -723,7 +746,22 @@ namespace _6_soft_3_all_calc
 			try
 			{
 				this.re += number2.re;
+				if (this.reAccuracy >= number2.reAccuracy)
+					this.re = Math.Round(this.re, this.reAccuracy);
+				else
+				{
+					this.reAccuracy = number2.reAccuracy;
+					this.re = Math.Round(this.re, this.reAccuracy);
+				}
+
 				this.im += number2.im;
+				if (this.imAccuracy >= number2.imAccuracy)
+					this.im = Math.Round(this.im, this.imAccuracy);
+				else
+				{
+					this.imAccuracy = number2.imAccuracy;
+					this.im = Math.Round(this.im, this.imAccuracy);
+				}
 			}
 			catch
 			{
@@ -738,7 +776,22 @@ namespace _6_soft_3_all_calc
 			try
 			{
 				this.re -= number2.re;
+				if (this.reAccuracy >= number2.reAccuracy)
+					this.re = Math.Round(this.re, this.reAccuracy);
+				else
+				{
+					this.reAccuracy = number2.reAccuracy;
+					this.re = Math.Round(this.re, this.reAccuracy);
+				}
+
 				this.im -= number2.im;
+				if (this.imAccuracy >= number2.imAccuracy)
+					this.im = Math.Round(this.im, this.imAccuracy);
+				else
+				{
+					this.imAccuracy = number2.imAccuracy;
+					this.im = Math.Round(this.im, this.imAccuracy);
+				}
 			}
 			catch
 			{
@@ -751,11 +804,42 @@ namespace _6_soft_3_all_calc
 			Complex number2 = (Complex)num2;
 			double re1 = this.re, re2 = number2.re;
 			double im1 = this.im, im2 = number2.im;
+			int firstAccuracy, secondAccuracy, newReAccuracy, newImAccuracy;
 
 			try
 			{
 				this.re = re1 * re2 - im1 * im2;
+				firstAccuracy = this.reAccuracy + number2.reAccuracy;
+				secondAccuracy = this.imAccuracy + number2.imAccuracy;
+
+				if (firstAccuracy >= secondAccuracy)
+				{
+					newReAccuracy = firstAccuracy;
+					this.re = Math.Round(this.re, newReAccuracy);
+				}
+				else
+				{
+					newReAccuracy = secondAccuracy;
+					this.re = Math.Round(this.re, newReAccuracy);
+				}
+
 				this.im = re1 * im2 + re2 * im1;
+				firstAccuracy = this.reAccuracy + number2.imAccuracy;
+				secondAccuracy = number2.reAccuracy + this.imAccuracy;
+
+				if (firstAccuracy >= secondAccuracy)
+				{
+					newImAccuracy = firstAccuracy;
+					this.im = Math.Round(this.im, newImAccuracy);
+				}
+				else
+				{
+					newImAccuracy = secondAccuracy;
+					this.im = Math.Round(this.im, newImAccuracy);
+				}
+
+				this.reAccuracy = newReAccuracy;
+				this.imAccuracy = newImAccuracy;
 			}
 			catch
 			{
@@ -773,6 +857,23 @@ namespace _6_soft_3_all_calc
 			{
 				this.re = (re1 * re2 + im1 * im2) / (re2 * re2 + im2 * im2);
 				this.im = (re2 * im1 - re1 * im2) / (re2 * re2 + im2 * im2);
+
+				if (re2 == 0 && im2 == 0)
+					throw new CalculatorException("Деление на 0.");
+
+				this.reAccuracy = CalculateAccuracy(this.re);
+				if (this.reAccuracy > 10)
+				{
+					this.reAccuracy = 10;
+					this.re = Math.Round(this.re, this.reAccuracy);
+				}
+
+				this.imAccuracy = CalculateAccuracy(im);
+				if (this.imAccuracy > 10)
+				{
+					this.imAccuracy = 10;
+					this.im = Math.Round(this.im, this.imAccuracy);
+				}
 			}
 			catch
 			{
@@ -783,11 +884,33 @@ namespace _6_soft_3_all_calc
 		public override void Square()
 		{
 			double re1 = re, im1 = im;
+			int firstAccuracy, secondAccuracy, newReAccuracy, newImAccuracy;
 
 			try
 			{
 				re = re1 * re1 - im1 * im1;
+				firstAccuracy = reAccuracy + reAccuracy;
+				secondAccuracy = imAccuracy + imAccuracy;
+
+				if (firstAccuracy >= secondAccuracy)
+				{
+					newReAccuracy = firstAccuracy;
+					re = Math.Round(re, newReAccuracy);
+				}
+				else
+				{
+					newReAccuracy = secondAccuracy;
+					re = Math.Round(re, newReAccuracy);
+				}
+
 				im = 2 * re1 * im1;
+				firstAccuracy = reAccuracy + imAccuracy;
+
+				newImAccuracy = firstAccuracy;
+				this.im = Math.Round(this.im, newImAccuracy);
+
+				this.reAccuracy = newReAccuracy;
+				this.imAccuracy = newImAccuracy;
 			}
 			catch
 			{
@@ -801,8 +924,25 @@ namespace _6_soft_3_all_calc
 
 			try
 			{
+				if (re1 == 0 && im1 == 0)
+					throw new CalculatorException("Деление на 0.");
+
 				re = re1 / (re1 * re1 + im1 * im1);
 				im = -im1 / (re1 * re1 + im1 * im1);
+
+				reAccuracy = CalculateAccuracy(re);
+				if (reAccuracy > 10)
+				{
+					reAccuracy = 10;
+					re = Math.Round(re, reAccuracy);
+				}
+
+				imAccuracy = CalculateAccuracy(im);
+				if (imAccuracy > 10)
+				{
+					imAccuracy = 10;
+					im = Math.Round(im, imAccuracy);
+				}
 			}
 			catch
 			{
@@ -812,36 +952,61 @@ namespace _6_soft_3_all_calc
 
 		public double FindModulus()
 		{
+			double number;
+
 			try
 			{
-				return Math.Sqrt(re * re + im * im);
+				number = Math.Sqrt(re * re + im * im);
+				if (CalculateAccuracy(number) > 10)
+					number = Math.Round(number, 10);
 			}
 			catch
 			{
 				throw new CalculatorException("Не удалось найти модуль комплексного числа.");
 			}
+
+			return number;
 		}
 
 		public double FindArgumentInRadians()
 		{
+			double number;
+
 			if (re == 0 && im == 0)
 				return 0.0;
 
 			if (re == 0)
-				return im > 0 ? Math.PI / 2 : -Math.PI / 2;
+			{
+				number = im > 0 ? Math.PI / 2 : -Math.PI / 2;
+				number = Math.Round(number, 10);
+				return number;
+			}
 
 			if (re > 0)
-				return Math.Atan(im / re);
+			{
+				number = Math.Atan(im / re);
+				if (CalculateAccuracy(number) > 10)
+					number = Math.Round(number, 10);
+				return number;
+			}
 
 			if (im < 0)
-				return Math.Atan(im / re) - Math.PI;
+			{
+				number = Math.Atan(im / re) - Math.PI;
+				if (CalculateAccuracy(number) > 10)
+					number = Math.Round(number, 10);
+				return number;
+			}
 
-			return Math.Atan(im / re) + Math.PI;
+			number = Math.Atan(im / re) + Math.PI;
+			if (CalculateAccuracy(number) > 10)
+				number = Math.Round(number, 10);
+			return number;
 		}
 
 		public double FindArgumentInDegrees()
 		{
-			return FindArgumentInRadians() * 180 / Math.PI;
+			return Math.Round(FindArgumentInRadians() * 180 / Math.PI, 10);
 		}
 
 		public string Power(long n)
@@ -852,7 +1017,7 @@ namespace _6_soft_3_all_calc
 			try
 			{
 				mod = Math.Pow(mod, n);
-				arg = arg * n / Math.PI;
+				arg = Math.Round(arg * n / Math.PI, 10);
 			}
 			catch
 			{
@@ -874,8 +1039,8 @@ namespace _6_soft_3_all_calc
 				mod = FindModulus();
 				arg = FindArgumentInRadians();
 
-				mod = Math.Pow(mod, 1.0 / n);
-				arg = arg / Math.PI;
+				mod = Math.Round(Math.Pow(mod, 1.0 / n), 10);
+				arg = Math.Round(arg / Math.PI, 10);
 
 				constant = 2 * (i - 1);
 			}
@@ -901,6 +1066,11 @@ namespace _6_soft_3_all_calc
 
 		public double Tan()
 		{
+			double number = Cos();
+
+			if (Math.Abs(number) < Math.Pow(10, -10))
+				throw new CalculatorException("Тангенс угла данного числа не определен.");
+
 			return Math.Tan(FindArgumentInRadians());
 		}
 
