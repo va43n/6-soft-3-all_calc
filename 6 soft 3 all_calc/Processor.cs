@@ -59,7 +59,8 @@ namespace _6_soft_3_all_calc
 					leftOperand.Division(rightOperand);
 			}
 
-			this.operation = operation;
+			if (operation != Operation.Equal)
+				this.operation = operation;
 
 			return leftOperand.ToString();
 		}
