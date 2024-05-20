@@ -154,14 +154,14 @@ namespace _6_soft_3_all_calc
 					//"+", "-", "*", "/"
 					if (lastInput >= 23 && lastInput <= 26)
 					{
-						processor.SetOperation(tag);
+						SetOperationInProcessor(tag);
 						((PNumberEditor)editor).ChangeSignInFormula(Constants.formulaSymbols[tag - 22]);
 					}
 
 					//"="
 					else if (lastInput == 22)
 					{
-						processor.SetOperation(tag);
+						SetOperationInProcessor(tag);
 						editor.UpdateFormula(Constants.formulaSymbols[tag - 22]);
 					}
 
@@ -220,7 +220,7 @@ namespace _6_soft_3_all_calc
 						if (lastInput == 22)
 						{
 							editor.UpdateFormula(Constants.formulaSymbols[tag - 22]);
-							processor.SetOperation(-1);
+							SetOperationInProcessor(-1);
 						}
 						else
 							editor.UpdateFormula(result + Constants.formulaSymbols[tag - 22]);
@@ -417,14 +417,14 @@ namespace _6_soft_3_all_calc
 					//"+", "-", "*", "/"
 					if (lastInput >= 23 && lastInput <= 26)
 					{
-						processor.SetOperation(tag);
+						SetOperationInProcessor(tag);
 						((FractionEditor)editor).ChangeSignInFormula(Constants.formulaSymbols[tag - 22]);
 					}
 
 					//"="
 					else if (lastInput == 22)
 					{
-						processor.SetOperation(tag);
+						SetOperationInProcessor(tag);
 						editor.UpdateFormula(Constants.formulaSymbols[tag - 22]);
 					}
 
@@ -476,7 +476,7 @@ namespace _6_soft_3_all_calc
 						if (lastInput == 22)
 						{
 							editor.UpdateFormula(Constants.formulaSymbols[tag - 22]);
-							processor.SetOperation(-1);
+							SetOperationInProcessor(-1);
 						}
 						else
 							editor.UpdateFormula(result + Constants.formulaSymbols[tag - 22]);
@@ -661,14 +661,14 @@ namespace _6_soft_3_all_calc
 						//"+", "-", "*", "/"
 						if (lastInput >= 23 && lastInput <= 26)
 						{
-							processor.SetOperation(tag);
+							SetOperationInProcessor(tag);
 							((ComplexEditor)editor).ChangeSignInFormula(Constants.formulaSymbols[tag - 22]);
 						}
 
 						//"="
 						else if (lastInput == 22)
 						{
-							processor.SetOperation(tag);
+							SetOperationInProcessor(tag);
 							editor.UpdateFormula(Constants.formulaSymbols[tag - 22]);
 						}
 
@@ -726,7 +726,7 @@ namespace _6_soft_3_all_calc
 							if (lastInput == 22)
 							{
 								editor.UpdateFormula(Constants.formulaSymbols[tag - 22]);
-								processor.SetOperation(-1);
+								SetOperationInProcessor(-1);
 							}
 							else
 								editor.UpdateFormula("(" + result + ")" + Constants.formulaSymbols[tag - 22]);
@@ -830,6 +830,20 @@ namespace _6_soft_3_all_calc
 				editor.UpdateFormula(result);
 
 			return result;
+		}
+
+		public void SetOperationInProcessor(int tag)
+		{
+			if (tag == -1)
+				processor.SetOperation(Operation.None);
+			else if (tag == 23)
+				processor.SetOperation(Operation.Addition);
+			else if (tag == 24)
+				processor.SetOperation(Operation.Subtraction);
+			else if (tag == 25)
+				processor.SetOperation(Operation.Multiplication);
+			else if (tag == 26)
+				processor.SetOperation(Operation.Division);
 		}
 
 		public string GetFormulaFromEditor()

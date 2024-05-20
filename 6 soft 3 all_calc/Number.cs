@@ -228,16 +228,11 @@ namespace _6_soft_3_all_calc
 				this.p = number2.p;
 
 			this.number *= number2.number;
+			this.c = this.c + number2.c;
 
-			if (this.c > number2.c && this.c <= 15)
+			if (this.c < 16)
 				this.number = Math.Round(this.number, this.c);
-			else if (number2.c >= this.c && number2.c <= 15)
-			{
-				this.c = number2.c;
-				this.number = Math.Round(this.number, this.c);
-			}
-			else
-				this.c = 16;
+			else this.c = 16;
 
 			strResult = Math.Abs(this.number).ToString();
 			accuracy = strResult.IndexOf(Constants.standardDelimeter);
@@ -810,7 +805,11 @@ namespace _6_soft_3_all_calc
 			{
 				this.re = re1 * re2 - im1 * im2;
 				firstAccuracy = this.reAccuracy + number2.reAccuracy;
+				if (firstAccuracy >= 16)
+					firstAccuracy = 15;
 				secondAccuracy = this.imAccuracy + number2.imAccuracy;
+				if (secondAccuracy >= 16)
+					secondAccuracy = 15;
 
 				if (firstAccuracy >= secondAccuracy)
 				{
@@ -825,7 +824,11 @@ namespace _6_soft_3_all_calc
 
 				this.im = re1 * im2 + re2 * im1;
 				firstAccuracy = this.reAccuracy + number2.imAccuracy;
+				if (firstAccuracy >= 16)
+					firstAccuracy = 15;
 				secondAccuracy = number2.reAccuracy + this.imAccuracy;
+				if (secondAccuracy >= 16)
+					secondAccuracy = 15;
 
 				if (firstAccuracy >= secondAccuracy)
 				{
@@ -853,13 +856,13 @@ namespace _6_soft_3_all_calc
 			double re1 = this.re, re2 = number2.re;
 			double im1 = this.im, im2 = number2.im;
 
+			if (re2 == 0 && im2 == 0)
+				throw new CalculatorException("Деление на 0.");
+
 			try
 			{
 				this.re = (re1 * re2 + im1 * im2) / (re2 * re2 + im2 * im2);
 				this.im = (re2 * im1 - re1 * im2) / (re2 * re2 + im2 * im2);
-
-				if (re2 == 0 && im2 == 0)
-					throw new CalculatorException("Деление на 0.");
 
 				this.reAccuracy = CalculateAccuracy(this.re);
 				if (this.reAccuracy > 10)
@@ -890,7 +893,11 @@ namespace _6_soft_3_all_calc
 			{
 				re = re1 * re1 - im1 * im1;
 				firstAccuracy = reAccuracy + reAccuracy;
+				if (firstAccuracy >= 16)
+					firstAccuracy = 15;
 				secondAccuracy = imAccuracy + imAccuracy;
+				if (secondAccuracy >= 16)
+					firstAccuracy = 15;
 
 				if (firstAccuracy >= secondAccuracy)
 				{
@@ -905,6 +912,8 @@ namespace _6_soft_3_all_calc
 
 				im = 2 * re1 * im1;
 				firstAccuracy = reAccuracy + imAccuracy;
+				if (firstAccuracy >= 16)
+					firstAccuracy = 15;
 
 				newImAccuracy = firstAccuracy;
 				this.im = Math.Round(this.im, newImAccuracy);

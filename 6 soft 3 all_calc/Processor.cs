@@ -59,14 +59,7 @@ namespace _6_soft_3_all_calc
 					leftOperand.Division(rightOperand);
 			}
 
-			if (operation == Operation.Addition)
-				this.operation = Operation.Addition;
-			else if (operation == Operation.Subtraction)
-				this.operation = Operation.Subtraction;
-			else if (operation == Operation.Multiplication)
-				this.operation = Operation.Multiplication;
-			else if (operation == Operation.Division)
-				this.operation = Operation.Division;
+			this.operation = operation;
 
 			return leftOperand.ToString();
 		}
@@ -111,18 +104,9 @@ namespace _6_soft_3_all_calc
 				rightOperand.Copy(number);
 		}
 
-		public void SetOperation(int tag)
+		public void SetOperation(Operation operation)
 		{
-			if (tag == -1)
-				operation = Operation.None;
-			else if (tag == 23)
-				operation = Operation.Addition;
-			else if (tag == 24)
-				operation = Operation.Subtraction;
-			else if (tag == 25)
-				operation = Operation.Multiplication;
-			else if (tag == 26)
-				operation = Operation.Division;
+			this.operation = operation;
 		}
 
 		public string SetNotation(int newP)
