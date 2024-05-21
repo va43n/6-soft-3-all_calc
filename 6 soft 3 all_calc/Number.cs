@@ -442,7 +442,9 @@ namespace _6_soft_3_all_calc
 			long sign;
 			long gcd;
 
-			sign = numerator * denominator < 0 ? -1 : 1;
+			sign = 1;
+			if (numerator < 0) sign *= -1;
+			if (denominator < 0) sign *= -1;
 
 			numerator = Math.Abs(numerator);
 			denominator = Math.Abs(denominator);
@@ -460,6 +462,9 @@ namespace _6_soft_3_all_calc
 
 		private long GCD(long m, long n)
 		{
+			m = Math.Abs(m);
+			n = Math.Abs(n);
+
 			while (m != n)
 			{
 				if (m > n)
@@ -575,8 +580,10 @@ namespace _6_soft_3_all_calc
 			if (numerator == 0)
 				throw new CalculatorException("Нельзя найти дробь, обратную нулевой.");
 
-			long sign = numerator * denominator < 0 ? -1 : 1;
-			long num = numerator;
+			long sign = 1, num = numerator;
+
+			if (numerator < 0) sign *= -1;
+			if (denominator < 0) sign *= -1;
 
 			numerator = Math.Abs(denominator) * sign;
 			denominator = Math.Abs(num);

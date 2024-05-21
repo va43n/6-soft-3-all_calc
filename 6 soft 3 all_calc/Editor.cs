@@ -36,7 +36,7 @@ namespace _6_soft_3_all_calc
 
 		public override string AddDigit(int index)
 		{
-			currentNumber = currentNumber == Constants.zero ? PNumber.alphabet[index].ToString() : currentNumber + PNumber.alphabet[index];
+			currentNumber = currentNumber == Constants.zero || currentNumber == Constants.stringSign + Constants.zero ? PNumber.alphabet[index].ToString() : currentNumber + PNumber.alphabet[index];
 
 			return currentNumber;
 		}
@@ -152,7 +152,7 @@ namespace _6_soft_3_all_calc
 
 		public override string AddDigit(int index)
 		{
-			if (currentNumber == Constants.zero)
+			if (currentNumber == Constants.zero || currentNumber == Constants.stringSign + Constants.zero)
 				currentNumber = Fraction.alphabet[index].ToString();
 			else if (currentNumber.IndexOf(Constants.fractionDelimeter) == currentNumber.Length - 1 && index == 0)
 				return currentNumber;
@@ -266,7 +266,7 @@ namespace _6_soft_3_all_calc
 
 		public override string AddDigit(int index)
 		{
-			if (currentNumber == Constants.zero)
+			if (currentNumber == Constants.zero || currentNumber == Constants.stringSign + Constants.zero)
 				currentNumber = Complex.alphabet[index].ToString();
 			else
 				currentNumber += Complex.alphabet[index];
@@ -305,7 +305,7 @@ namespace _6_soft_3_all_calc
 			if (currentNumber.IndexOf(Constants.complexDelimeter) != -1)
 				return currentNumber;
 
-			if (currentNumber == Constants.zero)
+			if (currentNumber == Constants.zero || currentNumber == Constants.stringSign + Constants.zero)
 				currentNumber = Constants.complexDelimeter;
 			else
 				currentNumber += Constants.formulaSymbols[1] + Constants.complexDelimeter;
