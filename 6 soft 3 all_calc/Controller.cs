@@ -63,6 +63,7 @@ namespace _6_soft_3_all_calc
 				editor = new ComplexEditor();
 				memory.ChangeTypeOfNumber(typeOfNumber, calculationMode);
 			}
+			lastInput = 0;
 		}
 
 		public string PNumberButtonClicked(int tag)

@@ -404,8 +404,11 @@ namespace _6_soft_3_all_calc
 
 		public void ChangeSignInFormula(string newSign)
 		{
-			formula = formula.Remove(formula.Length - 1, 1);
-			formula += newSign;
+			if (formula.Length != 0)
+			{
+                formula = formula.Remove(formula.Length - 1, 1);
+                formula += newSign;
+            }
 		}
 
 		private void TransformToNormalNumber()

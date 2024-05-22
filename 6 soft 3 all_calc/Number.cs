@@ -109,9 +109,9 @@ namespace _6_soft_3_all_calc
 			try
 			{
 				if (number == Math.Floor(number))
-					result = TenToInt(Convert.ToInt32(absNumber));
+					result = TenToInt(Convert.ToInt64(absNumber));
 				else
-					result = TenToInt(Convert.ToInt32(Math.Floor(absNumber))) + Constants.standardDelimeter + TenToDouble(absNumber - Math.Floor(absNumber));
+					result = TenToInt(Convert.ToInt64(Math.Floor(absNumber))) + Constants.standardDelimeter + TenToDouble(absNumber - Math.Floor(absNumber));
 			}
 			catch (OverflowException)
 			{
@@ -122,8 +122,8 @@ namespace _6_soft_3_all_calc
 
 			return result;
 		}
-
-		private string TenToInt(int number)
+		
+		private string TenToInt(long number)
 		{
 			string s = "", temp;
 
@@ -132,7 +132,7 @@ namespace _6_soft_3_all_calc
 
 			while (number >= 1)
 			{
-				temp = alphabet[number % p].ToString();
+				temp = alphabet[Convert.ToInt32(number % p)].ToString();
 
 				s = s.Insert(0, temp);
 				number /= p;
