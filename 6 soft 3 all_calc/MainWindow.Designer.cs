@@ -1975,11 +1975,12 @@
 			AutoScaleMode = AutoScaleMode.Font;
 			ClientSize = new Size(284, 461);
 			Controls.Add(tabControl);
+			Icon = (Icon)resources.GetObject("$this.Icon");
 			MaximumSize = new Size(1920, 1080);
 			MinimumSize = new Size(300, 500);
 			Name = "MainWindow";
 			StartPosition = FormStartPosition.CenterScreen;
-			Text = "P-ичный калькулятор";
+			Text = "Калькулятор";
 			tabControl.ResumeLayout(false);
 			tab1.ResumeLayout(false);
 			tableMain.ResumeLayout(false);
